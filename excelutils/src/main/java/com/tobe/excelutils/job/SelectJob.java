@@ -62,7 +62,7 @@ public class SelectJob implements IJob<ExcelResultSet>{
 							}
 							
 							//空白不会到这里
-							addRow = sql.whereFilter(rs.getHeaders(), cell, titleIndex);
+							addRow = sql.whereFilter(rs, cell, titleIndex);
 							if(!addRow){
 								break;
 							}

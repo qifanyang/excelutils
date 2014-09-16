@@ -254,6 +254,14 @@ public class BeanProcessor {
 		}
 	}
 
+	/***
+	 * 读取cell具体的值
+	 * @param rs
+	 * @param index
+	 * @param propType
+	 * @return
+	 * @throws SQLException
+	 */
 	protected Object processColumn(ExcelResultSet rs, int index,
 			Class<?> propType) throws SQLException {
 		if (!propType.isPrimitive() && rs.getObject(index) == null) {
@@ -264,7 +272,7 @@ public class BeanProcessor {
 			return rs.getString(index);
 
 		} else if (propType.equals(Integer.TYPE) || propType.equals(Integer.class)) {
-			return Integer.valueOf(rs.getInt(index));
+			return rs.getInt(index);
 
 		} else {
 			return rs.getObject(index);

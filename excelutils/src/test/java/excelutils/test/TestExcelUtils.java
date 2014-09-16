@@ -68,7 +68,9 @@ public class TestExcelUtils {
 	@Test
 	public void testWhere() throws Exception{
 		SelectSQL sql = new SelectSQL();
-		sql.where("name", "单笔充值").where("targetnum", "[1000]");//查询条件,name字段值必须是单笔充值,不是的不放入查询结果中 , 多个条件
+//		sql.where("name", "单笔充值").where("targetnum", "[1000]");//查询条件,name字段值必须是单笔充值,不是的不放入查询结果中 , 多个条件
+		
+		sql.where("groupdesc", "单笔充值");//支持表达式
 		
 		ExcelRunner runner = new ExcelRunner("/商业活动.xlsx");
 		

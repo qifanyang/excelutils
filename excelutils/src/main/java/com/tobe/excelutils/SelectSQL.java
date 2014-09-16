@@ -75,20 +75,24 @@ public class SelectSQL implements ISQL {
 	 * @param titleIndex
 	 * @return
 	 */
-	public boolean whereFilter(List<String> titles, Cell cell, int titleIndex){
+	public boolean whereFilter(ExcelResultSet rs, Cell cell, int titleIndex){
 		if(wheres.size() == 0){
 			isAddRow = true;
 			return true;//没有where字段,全部显示
 		}
 		
 		//这里一行会调用多次,只有当匹配的字段值相等才把该行记录加入结果集中
-		String t = titles.get(titleIndex).toLowerCase();
+		String t = rs.getHeaders().get(titleIndex).toLowerCase();
 		if(!wheres.containsKey(t)){
 			return true;
 		}else{
 			Object object = wheres.get(t);//name = kkkkk
 			if(object != null){//找到需要的字段,判断值,若不等,返回false,提前结束该行的扫描
-				if(!cell.toString().equals(object.toString())){//
+//				if(!cell.toString().equals(object.toString())){//
+//					isAddRow = false;
+//					return false;
+//				}
+				if(!ExlUtils.getObjectRealValue(rs, cell).equals(object.toString())){//
 					isAddRow = false;
 					return false;
 				}
