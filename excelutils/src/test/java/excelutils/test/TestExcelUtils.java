@@ -6,6 +6,7 @@ import java.util.List;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.tobe.excelutils.DataHelper;
 import com.tobe.excelutils.ExcelRunner;
 import com.tobe.excelutils.SelectSQL;
 import com.tobe.excelutils.handler.BeanHandler;
@@ -40,7 +41,7 @@ public class TestExcelUtils {
 		System.out.println("");
 	}
 	
-//	@Test
+	@Test
 	public void testSelectField() throws Exception{
 		SelectSQL sql = new SelectSQL();
 		sql.select("singledesc");
@@ -56,16 +57,16 @@ public class TestExcelUtils {
 		runner = new ExcelRunner("/商业活动.xlsx");
 		
 		List<ActivityVO> list = runner.query(sql, new BeanListHandler<ActivityVO>(ActivityVO.class));
+		DataHelper.print(runner.getRs().getHeaders(), list);
 		
 		runner = new ExcelRunner("/商业活动.xlsx");
-		
 		//查询所有字段
 		ActivityVO vo2 = runner.query(new SelectSQL(), new BeanHandler<ActivityVO>(ActivityVO.class));
 		
 		System.out.println("");
 	}
 	
-	@Test
+//	@Test
 	public void testWhere() throws Exception{
 		SelectSQL sql = new SelectSQL();
 //		sql.where("name", "单笔充值").where("targetnum", "[1000]");//查询条件,name字段值必须是单笔充值,不是的不放入查询结果中 , 多个条件
@@ -76,12 +77,15 @@ public class TestExcelUtils {
 		ExcelRunner runner = new ExcelRunner("E:/sourcetreerepo/excelutils/excelutils/src/main/resource/商业活动.xlsx");
 		
 		ActivityVO vo = runner.query(sql, new BeanHandler<ActivityVO>(ActivityVO.class));
+		
+		DataHelper.print(runner.getRs().getHeaders(), vo);
 		Assert.assertEquals(1, vo.getGroupId());
 		
 		runner = new ExcelRunner("/商业活动.xlsx");
 		
 		List<ActivityVO> list = runner.query(sql, new BeanListHandler<ActivityVO>(ActivityVO.class));
 		
+		DataHelper.print(runner.getRs().getHeaders(), list);
 		for(ActivityVO v : list){
 			Assert.assertEquals("单笔充值", v.getName());
 		}

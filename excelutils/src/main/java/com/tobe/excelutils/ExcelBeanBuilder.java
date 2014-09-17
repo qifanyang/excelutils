@@ -12,9 +12,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.google.common.collect.ImmutableBiMap.Builder;
-import com.sun.xml.internal.messaging.saaj.packaging.mime.util.BEncoderStream;
-
 /**
  * 根据excel文件,生成title的Bean
  * 

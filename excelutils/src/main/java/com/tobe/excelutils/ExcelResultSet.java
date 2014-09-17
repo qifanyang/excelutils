@@ -103,5 +103,10 @@ public class ExcelResultSet{
 		return ExlUtils.getObjectRealValue(this, cell(index));
 	}
 	
+	public Object getObject(String index) {
+//		return cell(index).toString();
+		return ExlUtils.getObjectRealValue(this, cell(index(index)));
+	}
+	
 	
 }
