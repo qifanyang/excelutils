@@ -18,7 +18,7 @@ public class DataHelper {
 			if(isEmpty(t))continue;
 			Field declaredField = obj.getClass().getDeclaredField(t);
 			declaredField.setAccessible(true);
-			sb.append(declaredField.get(obj).toString()).append("\t");
+			sb.append(declaredField.get(obj)).append("\t");
 		}
 		sb.append("\n");
 		sb.append("=====================数据展示结束=======================");
@@ -41,7 +41,7 @@ public class DataHelper {
 				if(isEmpty(t))continue;
 				Field declaredField = obj.getClass().getDeclaredField(t);
 				declaredField.setAccessible(true);
-				sb.append(declaredField.get(obj).toString()).append("\t");
+				sb.append(declaredField.get(obj)).append("\t");
 			}
 			sb.append("\n");
 		}

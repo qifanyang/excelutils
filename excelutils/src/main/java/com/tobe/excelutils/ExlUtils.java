@@ -12,6 +12,9 @@ import org.apache.poi.ss.usermodel.FormulaEvaluator;
 public class ExlUtils {
 
 	public static int getIntRealValue(ExcelResultSet rs, Cell cell){
+		if(null == cell){
+			return 0;
+		}
 		int cellType = cell.getCellType();
 		if(cellType == Cell.CELL_TYPE_FORMULA){
 			FormulaEvaluator evaluator = rs.getWb().getCreationHelper().createFormulaEvaluator();
@@ -23,6 +26,9 @@ public class ExlUtils {
 	
 	
 	public static String getStringRealValue(ExcelResultSet rs, Cell cell){
+		if(null == cell){
+			return null;
+		}
 		int cellType = cell.getCellType();
 		if(cellType == Cell.CELL_TYPE_FORMULA){
 			FormulaEvaluator evaluator = rs.getWb().getCreationHelper().createFormulaEvaluator();
@@ -33,6 +39,9 @@ public class ExlUtils {
 	}
 	
 	public static Object getObjectRealValue(ExcelResultSet rs, Cell cell){
+		if(null == cell){
+			return null;
+		}
 		int cellType = cell.getCellType();
 		if(cellType == Cell.CELL_TYPE_FORMULA){
 			FormulaEvaluator evaluator = rs.getWb().getCreationHelper().createFormulaEvaluator();

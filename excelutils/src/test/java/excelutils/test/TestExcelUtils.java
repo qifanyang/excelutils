@@ -44,6 +44,8 @@ public class TestExcelUtils {
 	@Test
 	public void testSelectField() throws Exception{
 		SelectSQL sql = new SelectSQL();
+		sql.select("name");
+		sql.select("groupdesc");
 		sql.select("singledesc");
 //		sql.where("name", "单笔充值");
 		
@@ -61,7 +63,7 @@ public class TestExcelUtils {
 		
 		runner = new ExcelRunner("/商业活动.xlsx");
 		//查询所有字段
-		ActivityVO vo2 = runner.query(new SelectSQL(), new BeanHandler<ActivityVO>(ActivityVO.class));
+//		ActivityVO vo2 = runner.query(new SelectSQL(), new BeanHandler<ActivityVO>(ActivityVO.class));
 		
 		System.out.println("");
 	}
