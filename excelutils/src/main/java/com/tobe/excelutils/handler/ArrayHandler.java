@@ -1,7 +1,5 @@
 package com.tobe.excelutils.handler;
 
-import java.sql.SQLException;
-
 import com.tobe.excelutils.BasicRowProcessor;
 import com.tobe.excelutils.ExcelResultSet;
 import com.tobe.excelutils.RowProcessor;

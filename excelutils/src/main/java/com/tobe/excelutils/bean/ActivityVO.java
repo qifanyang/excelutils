@@ -1,4 +1,4 @@
-package com.tobe.excelutils.test;
+package com.tobe.excelutils.bean;
 
 
 public class ActivityVO {

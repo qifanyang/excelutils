@@ -8,7 +8,7 @@ public class BasicRowProcessor implements RowProcessor {
 
 	private static final BeanProcessor defaultConvert = new BeanProcessor();
 
-	private static final BasicRowProcessor instance = new BasicRowProcessor();
+//	private static final BasicRowProcessor instance = new BasicRowProcessor();
 
 	/**
 	 * Use this to process beans.

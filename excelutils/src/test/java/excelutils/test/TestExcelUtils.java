@@ -9,13 +9,13 @@ import org.junit.Test;
 import com.tobe.excelutils.DataHelper;
 import com.tobe.excelutils.ExcelRunner;
 import com.tobe.excelutils.SelectSQL;
+import com.tobe.excelutils.bean.ActivityVO;
 import com.tobe.excelutils.handler.BeanHandler;
 import com.tobe.excelutils.handler.BeanListHandler;
-import com.tobe.excelutils.test.ActivityVO;
 
 public class TestExcelUtils {
 	
-//	@Test
+	@Test
 	public void testIgnore() throws Exception {
 		
 		SelectSQL sql = new SelectSQL();
@@ -68,7 +68,7 @@ public class TestExcelUtils {
 		System.out.println("");
 	}
 	
-//	@Test
+	@Test
 	public void testWhere() throws Exception{
 		SelectSQL sql = new SelectSQL();
 //		sql.where("name", "单笔充值").where("targetnum", "[1000]");//查询条件,name字段值必须是单笔充值,不是的不放入查询结果中 , 多个条件
