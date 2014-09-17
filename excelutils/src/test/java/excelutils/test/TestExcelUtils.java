@@ -40,7 +40,7 @@ public class TestExcelUtils {
 		System.out.println("");
 	}
 	
-	@Test
+//	@Test
 	public void testSelectField() throws Exception{
 		SelectSQL sql = new SelectSQL();
 		sql.select("singledesc");
@@ -72,7 +72,8 @@ public class TestExcelUtils {
 		
 		sql.where("groupdesc", "单笔充值");//支持表达式
 		
-		ExcelRunner runner = new ExcelRunner("/商业活动.xlsx");
+//		ExcelRunner runner = new ExcelRunner("/商业活动.xlsx");
+		ExcelRunner runner = new ExcelRunner("E:/sourcetreerepo/excelutils/excelutils/src/main/resource/商业活动.xlsx");
 		
 		ActivityVO vo = runner.query(sql, new BeanHandler<ActivityVO>(ActivityVO.class));
 		Assert.assertEquals(1, vo.getGroupId());

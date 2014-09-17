@@ -15,10 +15,7 @@ public class ExcelRunner {
 	}
 
 	public ExcelRunner(String path) {
-		if (!path.startsWith("/")) {
-			path += path;
-		}
-		dataSource = getClass().getResourceAsStream(path);
+		dataSource = ExlUtils.getDataSource(path);
 	}
 
 	public InputStream getDataSource() {

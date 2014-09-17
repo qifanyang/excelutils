@@ -1,6 +1,10 @@
 package com.tobe.excelutils;
 
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellValue;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
@@ -38,4 +42,25 @@ public class ExlUtils {
 		return cell.toString().trim();
 	}
 
+	/**先查找classpath,为空再查找文件系统*/
+	public static InputStream getDataSource(String path){
+		InputStream dataSource = null;
+		if (!path.startsWith("/")) {
+			dataSource = ExlUtils.class.getResourceAsStream("/" + path);
+		}else{
+			dataSource = ExlUtils.class.getResourceAsStream(path);
+		}
+		
+		if(dataSource == null){
+			try {
+				dataSource = new FileInputStream(path);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				throw new RuntimeException("找不到文件  , path = " + path);
+			}
+		}
+		
+		return dataSource;
+		
+	}
 }
