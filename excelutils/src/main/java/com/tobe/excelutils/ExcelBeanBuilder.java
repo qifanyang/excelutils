@@ -12,6 +12,9 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import com.tobe.excelutils.code.JavaBeanBuilder;
+
+
 /**
  * 根据excel文件,生成title的Bean
  * 
@@ -20,22 +23,20 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
  * @author TOBE
  * 
  */
-public class ExcelBeanBuilder {
+public class ExcelBeanBuilder extends JavaBeanBuilder{
 
 	private int titleIndex;// 标题栏在excel中的行
 
 	private int sheetIndex;
-
-	private String packageName;
 
 	public ExcelBeanBuilder() {
 		this(1, 0, null);
 	}
 
 	public ExcelBeanBuilder(int titleIndex, int sheetIndex, String packageName) {
+		super(packageName, null);
 		this.titleIndex = titleIndex;
 		this.sheetIndex = sheetIndex;
-		this.packageName = packageName;
 	}
 
 	public int getTitleIndex() {
@@ -62,17 +63,6 @@ public class ExcelBeanBuilder {
 		this.sheetIndex = sheetIndex;
 	}
 
-	public String getPackageName() {
-		return packageName;
-	}
-
-	/**
-	 * 生成类的包名,默认为空,没有包
-	 * @param packageName
-	 */
-	public void setPackageName(String packageName) {
-		this.packageName = packageName;
-	}
 
 	public List<String> parse(String path) {
 		List<String> titles = new ArrayList<String>();
@@ -83,7 +73,8 @@ public class ExcelBeanBuilder {
 			String sheetName = wb.getSheetName(sheetIndex);
 			Sheet sheet = wb.getSheetAt(sheetIndex);
 
-			titles.add(sheetName);// 0为sheetName
+//			titles.add(sheetName);// 0为sheetName
+			setClassName(sheetName);
 			Iterator<Row> rowIterator = sheet.rowIterator();
 
 			int rowCount = 1;
@@ -116,71 +107,20 @@ public class ExcelBeanBuilder {
 		return titles;
 	}
 
-	/**
-	 * list的第一字段作为类名,其它为字段
-	 * 
-	 * @param fields
-	 * @return
-	 */
-	public String buildCode(List<String> fields) {
-		StringBuilder sb = new StringBuilder();
-
-		if(null != packageName && packageName.length() > 0){
-			sb.append("package ").append(packageName).append("\n");
-		}
-		
-		sb.append("public class ").append(toUpper(fields.get(0), 0)).append("{ \n");
-		
-		//字段
-		for(int i = 1, size = fields.size(); i < size; i++){
-			sb.append("private String ").append(fields.get(i)).append(";\n\n");
-		}
-		
-		//get set 方法
-		for(int i = 1, size = fields.size(); i < size; i++){
-			String f = fields.get(i);
-			
-			sb.append("private void ")
-			.append("set").append(toUpper(f, 0)).append("(String ").append(f).append("){\n")//方法名
-			.append("\tthis.").append(f).append(" = ").append(f).append(";")//方法体
-			.append("\n}\n\n");
-			
-			sb.append("private String ").append("get").append(toUpper(f, 0)).append("(").append("){\n")//方法名
-			.append("\treturn ").append(f).append(";")//方法体
-			.append("\n}\n\n");
-		}
-		
-		sb.append("}");
-		
-		return sb.toString();
-
-	}
 
 	public String buildCode(String path) {
-		return buildCode(parse(path));
+		List<String> flist = parse(path);
+		setFields(flist);
+		return code();
 	}
 
-	public static String toUpper(String s, int index){
-		if(index == 0){
-			//首字母大写
-			String upperCase = s.substring(0, 1).toUpperCase();
-			String suffix = s.substring(1);
-			return upperCase + suffix;
-		}else{
-			String pre = s.substring(0, index);
-			String upperCase = s.substring(index, index + 1).toUpperCase();
-			String suffix = s.substring(index + 1);
-			return pre + upperCase + suffix;
-		}
-		
-	}
+	
 	
 	public static void main(String[] args) {
-		System.out.println(toUpper("leifds", 0));
-		System.out.println(toUpper("leifds", 3));
+//		System.out.println(toUpper("leifds", 0));
+//		System.out.println(toUpper("leifds", 3));
 		
 		ExcelBeanBuilder beanBuilder = new ExcelBeanBuilder();
-		beanBuilder.setTitleIndex(1);
 		System.out.println(beanBuilder.buildCode("/商业活动.xlsx"));
 	}
 }

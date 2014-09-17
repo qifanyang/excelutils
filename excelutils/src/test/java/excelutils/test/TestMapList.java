@@ -3,6 +3,7 @@ package excelutils.test;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.tobe.excelutils.ExcelRunner;
@@ -19,6 +20,10 @@ public class TestMapList {
 		ExcelRunner runner = new ExcelRunner("/商业活动.xlsx");
 		
 		List<Map<String, Object>> list = runner.query(sql, new MapListHandler());
+		
+		for(Map<String, Object> map : list){
+			Assert.assertNotNull(map.get("groupId"));
+		}
 		
 		System.out.println("");
 	}
