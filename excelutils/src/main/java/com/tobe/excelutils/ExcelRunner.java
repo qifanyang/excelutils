@@ -1,6 +1,7 @@
 package com.tobe.excelutils;
 
 import java.io.InputStream;
+import java.util.List;
 
 import com.tobe.excelutils.job.IJob;
 import com.tobe.excelutils.job.MultiSelectJob;
@@ -63,22 +64,13 @@ public class ExcelRunner {
 	}
 	
 	
-	public <T> T multiQuery(ISQL sql, MultiSheetSetHandler<T> rsh, Object... params) throws Exception {
+	public <T> T multiQuery(List<SelectSQL> sql, MultiSheetSetHandler<T> rsh, Object... params) throws Exception {
 		return multiQuery(sql,true, rsh, params);
 	}
 	
-	public <T> T multiQuery(ISQL sql,boolean closeIns, MultiSheetSetHandler<T> rsh, Object... params) throws Exception {
+	public <T> T multiQuery(List<SelectSQL> sql,boolean closeIns, MultiSheetSetHandler<T> rsh, Object... params) throws Exception {
 		T result = null;
-		IJob<MultiSheetResultSet> job;
-		StatementType stmtType = sql.stmtType();
-		
-		switch (stmtType) {
-		case SELECT:
-			job = new MultiSelectJob(dataSource, (SelectSQL)sql);
-			break;
-		default:
-			throw new RuntimeException("暂时不支持该操作");
-		}
+		IJob<MultiSheetResultSet> job = new MultiSelectJob(dataSource, sql);
 		
 		multirs = job.excute();
 		result = rsh.handle(multirs);
