@@ -12,7 +12,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.tobe.excelutils.code.JavaBeanBuilder;
+import com.tobe.excelutils.code.JavaBeanBuilder1;
 
 
 /**
@@ -23,7 +23,7 @@ import com.tobe.excelutils.code.JavaBeanBuilder;
  * @author TOBE
  * 
  */
-public class ExcelBeanBuilder extends JavaBeanBuilder{
+public class ExcelBeanBuilder extends JavaBeanBuilder1{
 
 	private int titleIndex;// 标题栏在excel中的行
 
