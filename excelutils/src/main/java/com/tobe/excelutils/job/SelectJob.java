@@ -4,9 +4,11 @@ import java.io.InputStream;
 import java.util.Iterator;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.tobe.excelutils.ExcelResultSet;
@@ -33,7 +35,8 @@ public class SelectJob implements IJob<ExcelResultSet>{
 				// 查询字段列表全部转为小写
 				Workbook wb = new XSSFWorkbook(dataSource);
 				rs.setWb(wb);
-	
+				FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
+				rs.setEvaluator(evaluator);
 				Sheet sheet = wb.getSheetAt(0);
 				Iterator<Row> rowIterator = sheet.rowIterator();
 	

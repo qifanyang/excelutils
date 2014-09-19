@@ -12,7 +12,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.util.BEncoderStream;
 import com.tobe.excelutils.code.JavaBeanBuilder;
 
 
@@ -78,13 +77,13 @@ public class ExcelBeanBuilder extends JavaBeanBuilder{
 			setClassName(sheetName);
 			Iterator<Row> rowIterator = sheet.rowIterator();
 
-			int rows = sheet.getPhysicalNumberOfRows();
+//			int rows = sheet.getPhysicalNumberOfRows();
 			int rowCount = 1;
 			while (rowIterator.hasNext()) {
 				if (rowCount++ == titleIndex) {// 该行为标题栏
 					Row row = rowIterator.next();
 					
-					int syso = row.getPhysicalNumberOfCells();
+//					int syso = row.getPhysicalNumberOfCells();
 					Iterator<Cell> cellIterator = row.cellIterator();
 					while (cellIterator.hasNext()) {
 						Cell cell = cellIterator.next(); 

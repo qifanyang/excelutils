@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 
@@ -11,6 +12,7 @@ import org.apache.poi.ss.usermodel.Workbook;
 public class ExcelResultSet{
 	
 	private Workbook wb;
+	private FormulaEvaluator evaluator;
 	
 	private List<Row> rowList = new ArrayList<Row>();//第一行为header
 	
@@ -64,6 +66,15 @@ public class ExcelResultSet{
 	public Workbook getWb() {
 		return wb;
 	}
+	
+	public FormulaEvaluator getEvaluator() {
+		return evaluator;
+	}
+
+	public void setEvaluator(FormulaEvaluator evaluator) {
+		this.evaluator = evaluator;
+	}
+
 	public int getInt(int columnIndex){
 		Cell cell = cell(columnIndex);
 //		int cellType = cell.getCellType();
