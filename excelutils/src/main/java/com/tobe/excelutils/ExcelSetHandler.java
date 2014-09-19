@@ -1,6 +1,5 @@
-package com.tobe.excelutils.handler;
+package com.tobe.excelutils;
 
-import com.tobe.excelutils.ExcelResultSet;
 
 public interface ExcelSetHandler<T> {
 

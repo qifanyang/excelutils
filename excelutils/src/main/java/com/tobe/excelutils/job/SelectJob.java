@@ -8,13 +8,12 @@ import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.apache.poi.xssf.usermodel.XSSFFormulaEvaluator;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.tobe.excelutils.ExcelResultSet;
 import com.tobe.excelutils.SelectSQL;
 
-/**执行查询:
+/**执行查询,返回一个sheet的结果集
  * 默认第一行为标题栏
  * 
  * */
@@ -22,22 +21,35 @@ public class SelectJob implements IJob<ExcelResultSet>{
 	
 	private InputStream dataSource;
 	private SelectSQL sql;
+	private Workbook wb;
+	//要查询的sheetIndex, 默认为0
+	private int sheetIndex;
 	
 	public SelectJob(InputStream dataSource, SelectSQL sql) {
 		this.dataSource = dataSource;
 		this.sql = sql;
 	}
 	
+	public SelectJob(Workbook wb, SelectSQL sql, int sheetIndex){
+		this.wb = wb;
+		this.sql = sql;
+		this.sheetIndex = sheetIndex;
+	}
+	
+	
 	public ExcelResultSet excute() {
 		ExcelResultSet rs = new ExcelResultSet();
 		try {
 				// 执行查询操作
 				// 查询字段列表全部转为小写
-				Workbook wb = new XSSFWorkbook(dataSource);
+				if(wb == null){
+					//多sheet查询时,会从构造方法中传入wb,同时dataSource为null
+					wb = new XSSFWorkbook(dataSource);
+				}
 				rs.setWb(wb);
 				FormulaEvaluator evaluator = wb.getCreationHelper().createFormulaEvaluator();
 				rs.setEvaluator(evaluator);
-				Sheet sheet = wb.getSheetAt(0);
+				Sheet sheet = wb.getSheetAt(sheetIndex);
 				Iterator<Row> rowIterator = sheet.rowIterator();
 	
 				boolean isFirstRow = true;

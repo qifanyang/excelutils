@@ -2,6 +2,7 @@ package com.tobe.excelutils.handler;
 
 import com.tobe.excelutils.BasicRowProcessor;
 import com.tobe.excelutils.ExcelResultSet;
+import com.tobe.excelutils.ExcelSetHandler;
 import com.tobe.excelutils.RowProcessor;
 
 public class ArrayHandler implements ExcelSetHandler<Object[]> {

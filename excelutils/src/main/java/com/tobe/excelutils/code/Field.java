@@ -5,7 +5,7 @@ package com.tobe.excelutils.code;
  * 
  */
 public class Field {
-	/**字段名*/
+	/**字段名,Bean字段和数据库字段都是这个*/
 	private String name;
 	
 	private String className;
@@ -13,9 +13,9 @@ public class Field {
 	private String javaClassName;
 	/**mysql数据库字段类型*/
 	private String dbClassName;
-	
+	/**在excel中的位置*/
 	private int cell;
-	/**注释*/
+	/**表注释*/
 	private String explain;
 	
 }

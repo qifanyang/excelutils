@@ -1,6 +1,7 @@
 package com.tobe.excelutils.handler;
 
 import com.tobe.excelutils.ExcelResultSet;
+import com.tobe.excelutils.ExcelSetHandler;
 
 public class ScalarHandler<T> implements ExcelSetHandler<T> {
 

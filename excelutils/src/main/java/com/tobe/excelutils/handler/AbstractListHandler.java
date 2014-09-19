@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.tobe.excelutils.ExcelResultSet;
+import com.tobe.excelutils.ExcelSetHandler;
 
 
 public abstract class AbstractListHandler<T> implements ExcelSetHandler<List<T>> {

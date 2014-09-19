@@ -8,13 +8,18 @@ import org.apache.poi.ss.usermodel.FormulaEvaluator;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
 
-//用来访问Excel数据
+/**
+ * 用来访问Excel单个sheet,需要访问多个sheet使用{@link MultiSheetResultSet}
+ * 
+ *@author TOBE
+ *
+ */
 public class ExcelResultSet{
 	
 	private Workbook wb;
 	private FormulaEvaluator evaluator;
 	
-	private List<Row> rowList = new ArrayList<Row>();//第一行为header
+	private List<Row> rowList = new ArrayList<Row>();
 	
 	private List<String> headers= new ArrayList<String>();
 	private int cursor = -1;//游标

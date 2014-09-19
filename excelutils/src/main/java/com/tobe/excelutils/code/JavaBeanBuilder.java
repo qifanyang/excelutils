@@ -125,6 +125,9 @@ public class JavaBeanBuilder implements ICodeBuilder {
 	}
 	
 	public static String toUpper(String s, int index){
+		if(null == s || s.length() == 0){
+			throw new RuntimeException("s can not null or length must not 0");
+		}
 		if(index == 0){
 			//首字母大写
 			String upperCase = s.substring(0, 1).toUpperCase();

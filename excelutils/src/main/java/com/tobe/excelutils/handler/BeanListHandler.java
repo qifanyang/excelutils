@@ -3,6 +3,7 @@ package com.tobe.excelutils.handler;
 import java.util.List;
 
 import com.tobe.excelutils.ExcelResultSet;
+import com.tobe.excelutils.ExcelSetHandler;
 import com.tobe.excelutils.RowProcessor;
 
 public class BeanListHandler<T> implements ExcelSetHandler<List<T>> {
