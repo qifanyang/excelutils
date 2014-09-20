@@ -1,8 +1,9 @@
 excelutils
 ==========
 
+一个类似于apache dbutils用于查询excel的库,没有实现全部的handler,基于apache POI 3.9解析excel,需要替换excel解析库可直接重写job
 
-一个类似于apache dbutils用于查询excel的库,没有实现全部的handler
+
 
 用法:
 
