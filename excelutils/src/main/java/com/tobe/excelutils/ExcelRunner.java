@@ -2,6 +2,7 @@ package com.tobe.excelutils;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Map;
 
 import com.tobe.excelutils.job.IJob;
 import com.tobe.excelutils.job.MultiSelectJob;
@@ -34,12 +35,13 @@ public class ExcelRunner {
 	public ExcelResultSet getRs() {
 		return rs;
 	}
-	//
-	public <T> T query(ISQL sql, ExcelSetHandler<T> rsh, Object... params) throws Exception {
-		return query(sql,true, rsh, params);
+	
+	//查询单个sheet
+	public <T> T query(ISQL sql, ExcelSetHandler<T> rsh) throws Exception {
+		return query(sql,true, rsh);
 	}
 	
-	public <T> T query(ISQL sql,boolean closeIns, ExcelSetHandler<T> rsh, Object... params) throws Exception {
+	public <T> T query(ISQL sql,boolean closeIns, ExcelSetHandler<T> rsh) throws Exception {
 		T result = null;
 		IJob<ExcelResultSet> job;
 		StatementType stmtType = sql.stmtType();
@@ -64,21 +66,28 @@ public class ExcelRunner {
 	}
 	
 	
-	public <T> T multiQuery(List<SelectSQL> sql, MultiSheetSetHandler<T> rsh, Object... params) throws Exception {
-		return multiQuery(sql,true, rsh, params);
-	}
-	
-	public <T> T multiQuery(List<SelectSQL> sql,boolean closeIns, MultiSheetSetHandler<T> rsh, Object... params) throws Exception {
-		T result = null;
+	/**查询多个sheet，返回list*/
+	public List<?> multiQueryToList(List<SelectSQL> sql, MultiSheetListSetHandler rsh, Object... params) throws Exception {
 		IJob<MultiSheetResultSet> job = new MultiSelectJob(dataSource, sql);
 		
 		multirs = job.excute();
-		result = rsh.handle(multirs);
+		List<?> result = rsh.handle(multirs);
 		
-		if(closeIns){
-			if(null != dataSource){
+		if(null != dataSource){
 				dataSource.close();
-			}
+		}
+		return result;
+	}
+	
+	/**查询多个sheet，返回map*/
+	public Map<String, Object> multiQueryToMap(List<SelectSQL> sql, MultiSheetMapSetHandler rsh) throws Exception {
+		IJob<MultiSheetResultSet> job = new MultiSelectJob(dataSource, sql);
+		
+		multirs = job.excute();
+		Map<String, Object> result = rsh.handle(multirs);
+		
+		if(null != dataSource){
+			dataSource.close();
 		}
 		return result;
 	}

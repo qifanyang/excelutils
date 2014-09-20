@@ -3,8 +3,10 @@ package com.tobe.excelutils;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.tobe.excelutils.job.MultiSelectJob;
+
 /**
- * 多Sheet结果集
+ * 多Sheet结果集，查询见{@link MultiSelectJob}
  * 
  * @author TOBE
  * 

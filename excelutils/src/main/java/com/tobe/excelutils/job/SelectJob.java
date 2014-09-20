@@ -36,7 +36,9 @@ public class SelectJob implements IJob<ExcelResultSet>{
 		this.sheetIndex = sheetIndex;
 	}
 	
-	
+	/**
+	 * 遍历每一行,放入ExcelResultSet,遇到NULL单元格和空白单元格不处理,该行不放入ExcelResultSet
+	 */
 	public ExcelResultSet excute() {
 		ExcelResultSet rs = new ExcelResultSet();
 		try {
@@ -62,6 +64,11 @@ public class SelectJob implements IJob<ExcelResultSet>{
 					// 遍历每一行,放入ExcelResultSet,遇到空不处理,不放入ExcelResultSet
 					while (cellIterator.hasNext()) {
 						Cell cell = cellIterator.next();
+						if(null == cell){
+							isBlank = true;//null等同于空白处理
+							break;
+						}
+						
 						if(isFirstRow){
 							String title = cell.toString().trim();
 							if(!sql.show(title)){
@@ -88,7 +95,7 @@ public class SelectJob implements IJob<ExcelResultSet>{
 					// if (!isFirstRow && !isBlank) {
 					// list.add(instance);
 					// }
-					//不是第一行,不是空白,不忽略
+					//不是第一行 ，并且不是空白,并且可以加入行List， 三个条件同时满足，当前行才会出现在结果集中
 					if (!isFirstRow && !isBlank && addRow) {
 						rs.getRowList().add(row);
 					}

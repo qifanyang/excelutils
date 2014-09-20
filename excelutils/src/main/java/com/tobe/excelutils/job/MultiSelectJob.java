@@ -11,7 +11,11 @@ import com.tobe.excelutils.ExcelResultSet;
 import com.tobe.excelutils.MultiSheetResultSet;
 import com.tobe.excelutils.SelectSQL;
 
-
+/**
+ * 执行多sheet查询，返回{@link MultiSheetResultSet}
+ * @author TOBE
+ *
+ */
 public class MultiSelectJob implements IJob<MultiSheetResultSet> {
 
 	private InputStream dataSource;
