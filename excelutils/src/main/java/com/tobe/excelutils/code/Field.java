@@ -7,11 +7,13 @@ package com.tobe.excelutils.code;
 public class Field {
 	/** 字段名,Bean字段和数据库字段都是这个 */
 	private String name;
+	/**excel中填写的字段类型*/
+	private String className;
 	/** 字段数据类型 */
 	private String javaClassName;
-	/** mysql数据库字段类型 */
+	/** mysql数据库字段类型 ,ibatis mapper文件需要使用大写*/
 	private String dbClassName;
-	/** 在excel中的位置 */
+	/** 在excel中的位置, 记录主键 */
 	private int cell;
 	/** 表注释 */
 	private String explain;
@@ -54,6 +56,14 @@ public class Field {
 
 	public void setExplain(String explain) {
 		this.explain = explain;
+	}
+
+	public String getClassName() {
+		return className;
+	}
+
+	public void setClassName(String className) {
+		this.className = className;
 	}
 
 }

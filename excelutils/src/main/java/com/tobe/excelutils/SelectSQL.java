@@ -7,15 +7,22 @@ import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Cell;
 
+import com.tobe.excelutils.filter.RowFilter;
+
+/**
+ * select查询,可以设置查询条件
+ *@author TOBE
+ *
+ */
 public class SelectSQL implements ISQL {
 
-	private String sheetName = "0";
-	private List<String> fields = new ArrayList<String>();// 查询字段,手动拼接
-	private List<String> ignores = new ArrayList<String>();// 忽略查询字段,手动拼接
-	private Map<String, Object> wheres = new HashMap<String, Object>();// 条件字段,手动拼接
-	private List<String> groups = new ArrayList<String>();// 分组字段,手动拼接
-	private List<String> orders = new ArrayList<String>();// 排序字段,手动拼接
+	private List<String> fields = new ArrayList<String>();// 查询字段
+	private List<String> ignores = new ArrayList<String>();// 忽略查询字段
+	private Map<String, Object> wheres = new HashMap<String, Object>();// 条件字段
+	private List<String> groups = new ArrayList<String>();// 分组字段
+	private List<String> orders = new ArrayList<String>();// 排序字段
 
+	private RowFilter rowFilter = new RowFilter();
 	@Override
 	public StatementType stmtType() {
 		return StatementType.SELECT;
@@ -107,12 +114,16 @@ public class SelectSQL implements ISQL {
 		
 	}
 	
-	public String getSheetName() {
-		return sheetName;
-	}
-
-	public void setSheetName(String sheetName) {
-		this.sheetName = sheetName;
+	/**
+	 * 是否过滤掉该行,不过滤返回true, 否则返回false
+	 * 
+	 * 过滤器,true表示通过过滤
+	 * @param rowNumber
+	 * @return
+	 */
+	public boolean rowFilter(int rowNumber){
+		rowFilter.setCurRow(rowNumber);
+		return rowFilter.filter();
 	}
 
 	public void clear() {
@@ -159,5 +170,14 @@ public class SelectSQL implements ISQL {
 		this.orders = orders;
 	}
 
+	public RowFilter getRowFilter() {
+		return rowFilter;
+	}
+
+	public void setRowFilter(RowFilter rowFilter) {
+		this.rowFilter = rowFilter;
+	}
+
 	
+
 }

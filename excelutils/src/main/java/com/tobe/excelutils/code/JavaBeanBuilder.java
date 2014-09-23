@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.hamcrest.core.IsEqual;
-
 /**
  * 根据字段类表构建一个javaBean,复杂的考虑使用FreeMarker 这里的支持不同类型的字段
  * 
@@ -64,7 +62,7 @@ public class JavaBeanBuilder implements ICodeBuilder {
 	public void setFields(List<Field> fields) {
 		this.fields = fields;
 	}
-	
+
 	@Override
 	public String code() {
 		return buildCode(fields);
@@ -83,23 +81,23 @@ public class JavaBeanBuilder implements ICodeBuilder {
 			sb.append("package ").append(packageName).append(";\n\n");
 		}
 
-		//导入包
-		Set<String> impsset = new HashSet<String>(); 
-		for(Field f : fields){
+		// 导入包
+		Set<String> impsset = new HashSet<String>();
+		for (Field f : fields) {
 			String jcn = f.getJavaClassName().toLowerCase();
-			if(jcn.startsWith("list<")){
+			if (jcn.startsWith("list<")) {
 				impsset.add("list");
-			}else if(jcn.startsWith("map<")){
+			} else if (jcn.startsWith("map<")) {
 				impsset.add("map");
-			}else if(jcn.startsWith("set<")){
+			} else if (jcn.startsWith("set<")) {
 				impsset.add("set");
 			}
 		}
-		for(String s : impsset){
+		for (String s : impsset) {
 			sb.append(importsmap.get(s)).append("\n");
 		}
 		sb.append("\n");
-		
+
 		// 注释
 
 		// 类名
@@ -108,7 +106,7 @@ public class JavaBeanBuilder implements ICodeBuilder {
 		// 字段
 		for (int i = 0, size = fields.size(); i < size; i++) {
 			Field f = fields.get(i);
-			if(!isEmpty(f.getExplain())){
+			if (!isEmpty(f.getExplain())) {
 				sb.append("\t/** ").append(f.getExplain()).append(" */\n");
 			}
 			sb.append("\tprivate ").append(f.getJavaClassName()).append(" ").append(f.getName()).append(";\n\n");
@@ -128,15 +126,15 @@ public class JavaBeanBuilder implements ICodeBuilder {
 					.append("\n\t}\n\n");
 		}
 
-		//结束
+		// 结束
 		sb.append("}");
 
 		return sb.toString();
 
 	}
-	
-	public boolean isEmpty(String s){
-		if(null == s || s.length() == 0){
+
+	public boolean isEmpty(String s) {
+		if (null == s || s.length() == 0) {
 			return true;
 		}
 		return false;

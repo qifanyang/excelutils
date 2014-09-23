@@ -54,8 +54,16 @@ public class SelectJob implements IJob<ExcelResultSet>{
 				Sheet sheet = wb.getSheetAt(sheetIndex);
 				Iterator<Row> rowIterator = sheet.rowIterator();
 	
-				boolean isFirstRow = true;
+				boolean isFirstRow = true;//用于header标识
+				int rowCount = 0;//行计数,从第一行前面开始
 				while (rowIterator.hasNext()) {
+					rowCount++;//行计数加一
+					boolean rowFilter = sql.rowFilter(rowCount);
+					if(!rowFilter){
+						//过滤掉
+						continue;
+					}
+					
 					boolean addRow = false;//默认该行记录不加入结果集,rowFilter判断是否加入
 					int titleIndex = 0;
 					Row row = rowIterator.next();
